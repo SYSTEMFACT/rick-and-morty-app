@@ -1,0 +1,49 @@
+.location-info {
+  width: 100%;
+  max-width: 450px;
+  margin: 0.5rem auto 0.5rem;
+  padding: 1.5rem 1rem;
+  background-color: #0b3b42;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+  text-align: center;
+  color: #ffffff;
+}
+
+.location-info__name {
+  font-size: 1.8rem;
+  color: #70a925;
+  margin-bottom: 1rem;
+}
+
+.location-info__details {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.location-info__detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+}
+
+.location-info__label {
+  font-weight: bold;
+  color: #cccccc;
+  margin-bottom: 0.3rem;
+}
+
+@media (max-width: 600px) {
+  .location-info__details {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .location-info {
+    padding: 1rem;
+  }
+}
+  
