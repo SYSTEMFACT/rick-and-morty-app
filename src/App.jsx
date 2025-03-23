@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Hero from './components/Hero';
-import Search from './components/Search';
+import Hero from './Components/Hero';
+import Search from './Components/Search';
 import LocationInfo from './Components/LocationInfo';
 import ResidentsList from './Components/ResidentsList';
 import { setRamdomNumber } from './utils';

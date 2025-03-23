@@ -1,13 +1,14 @@
 .search {
-  padding: 1em;
+  margin: 1em auto;
   display: flex;
   justify-content: center;
-  border-radius: 8px ;
+  align-items: center;
 }
 
 .search__container {
   display: flex;
-  width: 350px;
+  width: 100%;
+  max-width: 400px; /* Define un límite para pantallas grandes */
   background-color: #0b3b42;
   border-radius: 8px;
   overflow: hidden;
@@ -15,73 +16,47 @@
 }
 
 .search__input {
-  flex-grow: 1;
+  flex: 1; /* Toma el espacio restante */
   padding: 0.5em 1em;
   font-size: 1rem;
   border: none;
   outline: none;
   background-color: #fff;
   color: #333;
+  min-width: 0; /* Evita que se desborde en pantallas pequeñas */
 }
 
 .search__button {
+  flex-shrink: 0; /* Evita que el botón se reduzca más de lo necesario */
   background-color: #70a925;
   color: #fff;
   font-weight: bold;
-  padding: 0.4em 1em; 
+  padding: 0.4em 1em;
   font-size: 0.9rem;
   border: none;
-  border-radius: 0;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  white-space: nowrap; /* Evita que el texto del botón haga wrap */
+}
 
 .search__button:hover {
   background-color: #5a8e1b;
   transform: translateY(-1px);
 }
 
-.search__button:active {
-  transform: scale(0.98);
-}
+@media (max-width: 400px) {
+  .search__container {
+    flex-direction: column; /* Apila el input y el botón en pantallas pequeñas */
+    max-width: 90%;
+  }
 
-.search__error {
-  color: #ff4c4c;
-  font-size: 0.9rem;
-  margin-top: 0.5em;
-  text-align: center;
-}
+  .search__input {
+    width: 100%;
+  }
 
-.search__suggestions {
-  margin-top: 0.5em;
-  background-color: #0b3b42;
-  border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-  list-style: none;
-  padding: 0;
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-.search__suggestion-item {
-  padding: 0.75em 1em;
-  cursor: pointer;
-  color: #fff;
-  border-bottom: 1px solid #70a925;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.search__suggestion-item:hover {
-  background-color: #70a925;
-  color: #0b3b42;
-}
-
-/* Scrollbar */
-.search__suggestions::-webkit-scrollbar {
-  width: 6px;
-}
-
-.search__suggestions::-webkit-scrollbar-thumb {
-  background-color: #70a925;
-  border-radius: 10px;
+  .search__button {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+  }
 }
