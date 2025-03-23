@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './Search.css';
+import { useDebounce } from '../hooks/useDebounce';
 
 function Search({ onSearch }) {
   const inputRef = useRef();
@@ -8,20 +9,19 @@ function Search({ onSearch }) {
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState('');
 
-  // Actualiza el valor del input
+  const debouncedQuery = useDebounce(query, 600);
+
   const handleInputChange = (e) => {
     setQuery(e.target.value);
     setError('');
   };
 
-  // Cuando el usuario hace clic en una sugerencia
   const handleSuggestionClick = (location) => {
     onSearch(location.id);
     setQuery('');
     setSuggestions([]);
   };
 
-  // Cuando hace clic en el botón de búsqueda
   const handleSearchClick = () => {
     if (!query.trim()) {
       setError('Please enter a location name or ID');
@@ -29,6 +29,7 @@ function Search({ onSearch }) {
     }
 
     const numericQuery = parseInt(query.trim());
+
     if (!isNaN(numericQuery)) {
       onSearch(numericQuery);
     } else {
@@ -48,30 +49,26 @@ function Search({ onSearch }) {
     setQuery('');
   };
 
-  // Debounce para sugerencias automáticas
   useEffect(() => {
-    const debounceTimeout = setTimeout(() => {
-      if (!query.trim()) {
-        setSuggestions([]);
-        return;
-      }
+    if (!debouncedQuery.trim()) {
+      setSuggestions([]);
+      return;
+    }
 
-      const numericQuery = parseInt(query.trim());
-      if (!isNaN(numericQuery)) {
-        setSuggestions([
-          { id: numericQuery, name: `Go to location ID: ${numericQuery}` },
-        ]);
-        return;
-      }
+    const numericQuery = parseInt(debouncedQuery.trim());
 
-      axios
-        .get(`https://rickandmortyapi.com/api/location/?name=${query}`)
-        .then((res) => setSuggestions(res.data.results))
-        .catch(() => setSuggestions([]));
-    }, 500);
+    if (!isNaN(numericQuery)) {
+      setSuggestions([
+        { id: numericQuery, name: `Go to location ID: ${numericQuery}` },
+      ]);
+      return;
+    }
 
-    return () => clearTimeout(debounceTimeout);
-  }, [query]);
+    axios
+      .get(`https://rickandmortyapi.com/api/location/?name=${debouncedQuery}`)
+      .then((res) => setSuggestions(res.data.results))
+      .catch(() => setSuggestions([]));
+  }, [debouncedQuery]);
 
   return (
     <div className="search">

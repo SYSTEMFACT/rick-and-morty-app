@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useFetchApi } from '../hooks/useFetchApi';
 import './ResidentCard.css';
@@ -18,7 +19,18 @@ function ResidentCard({ url }) {
   };
 
   return (
-    <article className="resident">
+    <motion.article
+      className="resident"
+      initial={{ scale: 1 }}
+      whileHover={{
+        scale: 1.03,
+        boxShadow: `0 12px 24px ${statusColors[resident.status]}80`
+      }}
+      transition={{
+        duration: 0.3,
+        ease: 'easeInOut'
+      }}
+    >
       <div className="resident__header">
         <img className="resident__image" src={resident.image} alt={resident.name} />
         <div className="resident__status">
@@ -38,7 +50,7 @@ function ResidentCard({ url }) {
           <li><span className="resident__label">Episodes:</span> {resident.episode.length}</li>
         </ul>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

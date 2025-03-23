@@ -1,53 +1,85 @@
 .location-info {
-  width: 100%;
-  max-width: 320px; /* Ligeramente mayor que una tarjeta de 280px */
-  margin: 1rem auto; /* Centrado */
+  background: rgba(0, 0, 0, 0.7);
+  color: #f0f0f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
   padding: 1rem;
-  background-color: #0b3b42;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  color: #ffffff;
-  text-align: center;
-  box-sizing: border-box;
+  margin: 1.5rem auto;
+
+  width: 320px;
+  max-width: 90%;
+
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  overflow: hidden;
+}
+
+.location-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.8);
 }
 
 .location-info__name {
-  font-size: 1.3rem;
-  color: #70a925;
+  font-size: 1.4rem;
+  color: #00ffff;
+  text-align: center;
   margin-bottom: 0.8rem;
-  word-wrap: break-word;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
 }
 
 .location-info__details {
-  display: flex;
-  justify-content: space-between; /* Espacio entre columnas */
-  flex-wrap: wrap; /* Permite que se acomode en pantallas pequeñas */
-  gap: 0.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
 }
 
 .location-info__detail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1; /* Se ajusta a la columna automáticamente */
-  min-width: 80px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem 0.5rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: background-color 0.3s;
+  font-size: 0.85rem;
+}
+
+.location-info__detail:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .location-info__label {
-  font-weight: bold;
-  color: #cccccc;
-  font-size: 0.85rem;
-  margin-bottom: 0.3rem;
+  color: #7df9ff;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-bottom: 0.2rem;
+  display: block;
 }
 
 .location-info__detail span:last-child {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: #ffffff;
 }
 
-/* Responsive: para pantallas pequeñas apila las columnas */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+  .location-info {
+    width: 90%;
+    padding: 0.8rem;
+  }
+
   .location-info__details {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  .location-info__name {
+    font-size: 1.2rem;
+  }
+
+  .location-info__label {
+    font-size: 0.7rem;
+  }
+
+  .location-info__detail span:last-child {
+    font-size: 0.75rem;
   }
 }

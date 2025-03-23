@@ -3,14 +3,14 @@ import Hero from './Components/Hero';
 import Search from './Components/Search';
 import LocationInfo from './Components/LocationInfo';
 import ResidentsList from './Components/ResidentsList';
-import { setRamdomNumber } from './utils';
+import { setRandomNumber } from './utils';
 import { useFetchApi } from './hooks/useFetchApi';
 import './index.css';
 
 const baseUrl = 'https://rickandmortyapi.com/api/location';
 
 function App() {
-  const [locationId, setLocationId] = useState(setRamdomNumber());
+  const [locationId, setLocationId] = useState(setRandomNumber());
   const { data: location, request, loading, error } = useFetchApi();
 
   useEffect(() => {
@@ -28,17 +28,19 @@ function App() {
   return (
     <div className="app-container">
       <Hero />
-      <Search onSearch={handleSearch} />
+      <main className="main-content">
+        <Search onSearch={handleSearch} />
 
-      {loading && <p className="loading-text">Loading...</p>}
-      {error && <p className="error-text">{error}</p>}
+        {loading && <p className="loading-text">Loading...</p>}
+        {error && <p className="error-text">{error}</p>}
 
-      {!loading && !error && location && (
-        <>
-          <LocationInfo location={location} />
-          <ResidentsList residents={location.residents} />
-        </>
-      )}
+        {!loading && !error && location && (
+          <>
+            <LocationInfo location={location} />
+            <ResidentsList residents={location.residents} />
+          </>
+        )}
+      </main>
     </div>
   );
 }
